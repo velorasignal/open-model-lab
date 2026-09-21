@@ -1,0 +1,2 @@
+# Optional development dependencies
+pytest>=7
