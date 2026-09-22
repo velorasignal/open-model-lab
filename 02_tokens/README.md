@@ -1,4 +1,4 @@
-# 02 — Tokens
+# 2.Tokens
 
 Models do not receive raw strings; tokenizers turn text into token units and IDs. This tiny tokenizer is for intuition, not a production tokenizer.
 
