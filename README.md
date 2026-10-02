@@ -4,7 +4,7 @@ A small, local-first laboratory for learning how modern AI systems work by build
 
 > **Understand → Implement → Run → Experiment → Connect**
 
-This is not a framework and it does not promise AGI. It is a guided path from a weighted function and next-token prediction to a small local agent with tools, memory, and retrieval.
+This is not a framework and it does not promise AGI. It is a guided path from a weighted function and next-token prediction to a small local agent with tools, memory, retrieval, and evaluation.
 
 ## Five-minute first success
 
@@ -61,9 +61,11 @@ flowchart TD
     App --> Tools[Safe tools]
     App --> Memory[Conversation memory]
     App --> RAG[Chunk → embed → retrieve]
+    App --> Eval[Evaluation checks]
     Tools --> App
     Memory --> App
     RAG --> App
+    Eval --> App
 ```
 
 The numbered lessons reuse the small `lab` package. Toy code is deliberately transparent; it is not a replacement for optimized Transformer runtimes.
@@ -74,31 +76,38 @@ The numbered lessons reuse the small `lab` package. Toy code is deliberately tra
 python 01_python_ai_foundations/linear_model.py
 python 02_tokens/token_explorer.py "The cat sat on the mat"
 python 03_embeddings/embedding_demo.py
+python 04_language_models/next_token_demo.py --prompt "The cat sat on the" --temperature 0.2 1.2
 python 05_transformers/attention_demo.py
+python 06_local_llm/chat.py --demo --prompt "Explain inference in one sentence."
 python 07_llm_application/structured_output.py
 python 08_tools/tool_calling.py
 python 09_agents/agent.py --demo
-python 11_rag/rag.py --question "What does this lab teach?"
+python 09_agents/agent.py --demo --prompt "Use the calculator to add 7 and 8"
+python 10_memory/memory.py
+python 11_rag/ingest.py
+python 11_rag/retrieve.py
+python 11_rag/rag.py --question "What does retrieval do?"
+python 12_evaluation/evaluate.py --verbose
 python -m pytest
 ```
 
-Each lesson README answers what, why, how, what to run, and what to change. Try temperature `0.2` versus `1.2`, alter the attention query, add a document, or change a tool description.
+Each lesson README answers what, why, how, what to run, and what to change. Try temperature `0.2` versus `1.2`, alter the attention query, add a document, create a tool, inspect memory, or compare retrieval results.
 
 ## What not to miss
 
-**Tokens** are the model's units; **embeddings** are learned vectors; **logits** are unnormalized scores; **softmax** turns scores into probabilities; **attention** mixes information from context; **inference** is running fixed weights; the **context window** is the available prompt/history; **temperature and sampling** choose among predictions; **parameters** are learned numbers; **quantization** stores them with fewer bits; **hallucination** is a confident unsupported generation; **evaluation** measures behavior; **tool calling** is structured software control; an **agent loop** repeatedly asks a model, executes an allowed tool, and feeds back an observation; **RAG** retrieves external context; **memory** is application state, not model learning; **prompt injection** is untrusted text attempting to redirect instructions.
+**Tokens** are the model's units; **embeddings** are numeric vector representations; **logits** are unnormalized scores; **softmax** turns scores into probabilities; **attention** mixes information from context; **providers** hide local runtime details; **tools** create a controlled execution boundary; **memory** keeps relevant conversation state; **RAG** adds external documents before generation; and **evaluation** measures whether the system is working.
 
 ## Safety
 
-The examples never expose unrestricted shell execution. Treat model output and documents as untrusted. Keep secrets out of prompts, validate structured output, use an allow-list of tools, restrict file paths, and add human approval before consequential actions. See `docs/troubleshooting.md` and `09_agents/README.md`.
+The examples never expose unrestricted shell execution. Treat model output and documents as untrusted. Keep secrets out of prompts, validate structured output, use an allow-list of tools, restrict file access, and keep evaluation checks honest.
 
 ## Research direction
 
-Once attention is clear, read [Attention Is All You Need](https://arxiv.org/abs/1706.03762). Then explore representation learning, retrieval evaluation, inference optimization, tool use, alignment, and multimodal models. The toy → real system → framework progression is intentional: understand the mechanism before choosing an abstraction.
+Once attention is clear, read [Attention Is All You Need](https://arxiv.org/abs/1706.03762). Then explore representation learning, retrieval evaluation, inference optimization, tool use, alignment, and scalable memory design.
 
 ## Capstone
 
-`examples/simple_agent/` combines a local provider, safe calculator/time tools, conversation memory, and optional document retrieval. Extend it with a new read-only tool and write an evaluation case. That is a small but real AI system.
+`examples/simple_agent/` combines a local provider, safe calculator/time tools, conversation memory, and optional document retrieval. Extend it with a new read-only tool and write an evaluation checklist for a few realistic user tasks.
 
 ## Contributing
 
