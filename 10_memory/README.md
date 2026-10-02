@@ -2,7 +2,7 @@
 
 A model does not remember your previous messages on its own unless the application keeps the conversation state and passes it back in. This is where memory enters the system. In a real app, memory is not just a list of messages; it is a design choice about what to preserve, what to summarize, and what to discard.
 
-This chapter keeps the idea clean and readable. We do not build a huge memory store. We show the basic pattern behind chat history, short-term context, and stateful applications.
+This chapter keeps the idea clean and readable. We do not build a huge memory store. We show the basic pattern behind chat history, short-term context, and stateful applications .
 
 ```text
 user message
